@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Versioning -->
+    <groupId>gr.codelearn</groupId>
+    <artifactId>java-path-test</artifactId>
+    <version>2024.1.0</version>
+
+    <!-- Meta-data -->
+    <name>[${project.artifactId}]</name>
+    <description>Java Learning @ Development Path, Test module</description>
+    <organization>
+        <name>Code.Learn by Code.Hub</name>
+        <url>https://www.codehub.gr/codelearn/</url>
+    </organization>
+    <inceptionYear>2024</inceptionYear>
+
+    <!-- Properties -->
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <log4j2.version>2.18.0</log4j2.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <disruptor.version>3.4.4</disruptor.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j18-impl</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <!--
+            This is to stop receiving errors about failing to load class "org.slf4j.impl.StaticLoggerBinder"
+            -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--
+            Asynchronous Logging @see https://logging.apache.org/log4j/2.x/manual/async.html
+            -->
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j18-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+    </dependencies>
+</project>
