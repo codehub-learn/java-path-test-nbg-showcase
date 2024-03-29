@@ -8,6 +8,7 @@
         <module>java-path-core-oop</module>
         <module>java-path-core-collection</module>
         <module>java-path-core-stream</module>
+        <module>basic-testing</module>
     </modules>
 
     <!-- Versioning -->
