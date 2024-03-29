@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TimeoutTest {
+public class TimeoutTesting {
 
     @Test
     void testShouldSucceedInOneSecond(){
