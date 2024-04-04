@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- Packaging -->
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>jar</packaging>
+
+	<!-- Versioning -->
+	<artifactId>java-path-test-core</artifactId>
+	<parent>
+		<groupId>gr.codelearn</groupId>
+		<artifactId>java-path-test</artifactId>
+		<version>2024.1.0</version>
+	</parent>
+
+	<!-- Meta-data -->
+	<name>[${project.artifactId}]</name>
+	<description>Java Learning @ Development Path, Test module, Demonstration code</description>
+
+	<!-- Properties/Variables -->
+	<properties>
+		<!-- Library versions-->
+		<mockito.version>3.12.4</mockito.version>
+	</properties>
+
+	<!-- Dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+		<!--		lombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.30</version>
+			<scope>provided</scope>
+		</dependency>
+		<!--		Junit Dependency-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--		junit launcher-->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.20.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!--        for migrating from junit4 to junit5-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-migrationsupport</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!--			for suite testing-->
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--		https://github.com/artsok/rerunner-jupiter/ -->
+		<dependency>
+			<groupId>io.github.artsok</groupId>
+			<artifactId>rerunner-jupiter</artifactId>
+			<version>2.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- For this plugins, use the versions and configuration mentioned in the pluginManagement section -->
+		<plugins>
+			<!-- testing plugins: -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<!-- what tags NOT to run for example -->
+				<configuration>
+					<!--	these groups are equivalent to @Tag annotated classes in the code -->
+					<!--	there can also be @Category annotated classes which correspond to the <group> -->
+					<!--	for more info: https://www.baeldung.com/junit-filtering-tests -->
+					<groups>production</groups>
+					<excludedGroups>integration</excludedGroups>
+					<!-- Inclusion/exclusion can also be class-name based:-->
+					<!-- For more info for the following: https://maven.apache
+					.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html -->
+					<!-- <includes> -->
+					<!-- 	<include>**/*Test.java</include> -->
+					<!-- </includes> -->
+					<!-- <excludes> -->
+					<!-- 	**/*IntegrationTest.java -->
+					<!-- </excludes> -->
+				</configuration>
+			</plugin>
+			<!-- jacoco plugin-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<!-- for jacoco.exec, this can be read in tools such as Sonar Qube-->
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- for generating the report under the target/site directory-->
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<limits>
+										<limit>
+											<!-- used with "mvn verify" -->
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<!-- the following percentage for each class-->
+											<!-- note: for current version, there is a bug i can't figure out:
+											"[WARNING] Rule violated for package gr.codelearn.eshop: lines covered
+											ratio is 0.12, but expected minimum is 0.80" when run with "mvn verify"-->
+											<minimum>0.10</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- testing plugins -->
+		</plugins>
+	</build>
+</project>

@@ -9,6 +9,7 @@
         <module>java-path-core-collection</module>
         <module>java-path-core-stream</module>
         <module>basic-testing</module>
+        <module>testing</module>
     </modules>
 
     <!-- Versioning -->
@@ -64,6 +65,13 @@
                 <groupId>com.lmax</groupId>
                 <artifactId>disruptor</artifactId>
                 <version>${disruptor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.7.2</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
