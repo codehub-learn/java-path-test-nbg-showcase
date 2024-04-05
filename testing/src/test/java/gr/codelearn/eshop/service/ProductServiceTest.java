@@ -3,9 +3,12 @@ package gr.codelearn.eshop.service;
 import gr.codelearn.eshop.domain.Customer;
 import gr.codelearn.eshop.domain.CustomerCategory;
 import gr.codelearn.eshop.exception.InvalidObjectValuesException;
+import gr.codelearn.eshop.service.base.ExceptionLoggingAndTestSummary;
 import gr.codelearn.eshop.service.extension.DatabaseManager;
+import gr.codelearn.eshop.service.extension.TestSummary;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
@@ -13,8 +16,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(DatabaseManager.class)
+@ExceptionLoggingAndTestSummary
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductServiceTest {
 
+    // for showcase only
     @Test
     @DisplayName("sorts customers by default order (lexicographically by email")
     void sortsByEmail2() {
