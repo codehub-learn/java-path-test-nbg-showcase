@@ -21,6 +21,7 @@ class CartServiceImplTest {
 
     @Test
     @DisplayName("successfully adds a correct item")
+    @Tag("development")
     void addCorrectlyItemToCart() {
         Item item = Item.builder().name("Mouse AA1").quantity(1).price(BigDecimal.TEN).category(Category.MOUSE).build();
         boolean result = cartService.addItem(item);
