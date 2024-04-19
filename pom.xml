@@ -10,6 +10,7 @@
         <module>java-path-core-stream</module>
         <module>basic-testing</module>
         <module>testing</module>
+        <module>java-path-exam</module>
     </modules>
 
     <!-- Versioning -->
